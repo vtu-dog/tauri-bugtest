@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OvenPlayer</title>
+</head>
+
+<style>
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+
+<body>
+    <!-- OvenPlayer will be initialised inside this element. -->
+    <div id="player_id"></div>
+
+    <!-- load OvenPlayer via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/ovenplayer/dist/ovenplayer.js"></script>
+
+    <script>
+        // initialise OvenPlayer
+        const player = OvenPlayer.create("player_id", {
+            "autoStart": true,
+            "autoFallback": true,
+            "mute": false,
+            "sources": [{
+                "label": "OvenPlayer",
+                "type": "webrtc",
+                "file": "wss://demo.ovenplayer.com:3333/app/test-input-stream?transport=tcp"
+            }],
+            "webrtcConfig": {
+                "timeoutMaxRetry": 10,
+                "connectionTimeout": 3000
+            }
+        });
+
+        // toggle fullscreen immediately
+        player.on('ready', function () {
+            player.toggleFullScreen();
+        })
+    </script>
+</body>
+
+</html>
